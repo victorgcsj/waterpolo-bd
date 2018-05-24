@@ -26,9 +26,8 @@ public class ConexionBd {
             + "   nombre VARCHAR(30),\n"
             + "   apellidos VARCHAR(30),\n"
             + "   edad INT,\n"
-            + "   idequipo int,\n"
+            + "   idequipo int NOT NULL,\n"
             + "   FOREIGN KEY (idequipo) REFERENCES equipo(id) ON DELETE CASCADE ON UPDATE CASCADE\n"
-            + ")"
             + ")";
 
     static {

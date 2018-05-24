@@ -9,6 +9,6 @@ CREATE TABLE jugador (
    nombre VARCHAR(30),
    apellidos VARCHAR(30),
    edad INT,
-   idequipo int,
+   idequipo int NOT NULL,
    FOREIGN KEY (idequipo) REFERENCES equipo(id) ON DELETE CASCADE ON UPDATE CASCADE
 )
