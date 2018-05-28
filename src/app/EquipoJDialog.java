@@ -155,6 +155,9 @@ public class EquipoJDialog extends javax.swing.JDialog {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         boolean exito;
+        equipo.setNombre(jTextFieldNombre.getText());
+        equipo.setCiudad(jTextFieldCiudad.getText());
+        equipo.setPais(jTextFieldPais.getText());
         if (equipo.getId() < 1) {
            exito = equipo.create();
         } else {

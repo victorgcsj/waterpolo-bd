@@ -328,6 +328,7 @@ public class AppJFrame extends javax.swing.JFrame {
         Equipo e = new Equipo();
         EquipoJDialog dialogoEquipo = new EquipoJDialog(this, e);
         dialogoEquipo.setVisible(true);
+        actualizarListaEquipos();
     }//GEN-LAST:event_jButtonAnnandirEquipoActionPerformed
 
     private void jButtonEditarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarEquipoActionPerformed
@@ -341,7 +342,6 @@ public class AppJFrame extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un equipo", "Atención", JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_jButtonEditarEquipoActionPerformed
 
     private void jButtonAnnandirJugadorEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnandirJugadorEquipoActionPerformed

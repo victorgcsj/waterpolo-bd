@@ -7,6 +7,8 @@ package model;
 
 import java.util.*;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -75,8 +77,21 @@ public class Equipo {
 
     // ---------- CRUD BÁSICO
     public boolean create() {
-
-        return true;
+        boolean todoOk = true;
+        try (Connection conn = ConexionBd.obtener()) {
+            String sql = "INSERT INTO equipo(nombre, ciudad, pais) "
+                    + "VALUES (?, ?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, this.getNombre());
+                stmt.setString(2, this.getCiudad());
+                stmt.setString(3, this.getPais());
+                stmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            todoOk = false;
+            ex.printStackTrace();
+        }
+        return todoOk;
     }
 
     public boolean retrieve() {
@@ -111,17 +126,27 @@ public class Equipo {
         if (!(orden >= 0 && orden <= 1)) {
             throw new IllegalArgumentException("Parámetro de orden de equipos no admitido");
         }
-
-        // Si la búsqueda es una cadena vacía lanzamos una select sin WHERE
-        // y si tiene algo con WHERE y varios LIKEs
-        // POR HACER
-        List<Equipo> resultado = new ArrayList<>();
-        resultado.add(
-                new Equipo(1, "Halcones calvos", "Getafe", "España"));
-        resultado.add(
-                new Equipo(2, "Dumma den som läser den", "Visby", "Suecia"));
+        List<Equipo> resultado = null;
+        boolean todoOk = true;
+        try (Connection conn = ConexionBd.obtener()) {
+            resultado = new ArrayList<>();
+            String sql = "SELECT id, nombre, ciudad, pais FROM equipo ";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        resultado.add(new Equipo(
+                                rs.getInt("id"), rs.getString("nombre"), rs.getString("ciudad"), rs.getString("pais")
+                        ));
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            todoOk = false;
+            ex.printStackTrace();
+        }
         return resultado;
-
     }
 
 }
+
+
