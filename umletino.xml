@@ -1,0 +1,45 @@
+<diagram program="umletino" version="14.2"><zoom_level>10</zoom_level><element><id>UMLPackage</id><coordinates><x>220</x><y>25</y><w>520</w><h>180</h></coordinates><panel_attributes>App
+--
+bg=orange</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>260</x><y>105</y><w>100</w><h>30</h></coordinates><panel_attributes>AppJFrame
+bg=white</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>430</x><y>65</y><w>100</w><h>30</h></coordinates><panel_attributes>EquipoJDialog
+bg=white</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>600</x><y>135</y><w>100</w><h>30</h></coordinates><panel_attributes>JugadorJDialog
+bg=white</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>65</y><w>100</w><h>80</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>80;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>350</x><y>115</y><w>270</w><h>50</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>250;30;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>335</y><w>360</w><h>240</h></coordinates><panel_attributes>bg=white
+&lt;&lt;Entity&gt;&gt;
+Equipo
+--
+-id:int
+-nombre:String
+-ciudad:String
+-país:String
+--
++create():boolean
++retrieve():boolean
++update():boolean
++delete():boolean
++getJugadores() : List&lt;Jugador&gt; 
+_+obtenerEquipos(busqueda: String , orden:int ):List&lt;Equipo&gt; _
+
+/* ...etc: varios constructores y accesores */</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>325</y><w>280</w><h>280</h></coordinates><panel_attributes>bg=white
+&lt;&lt;Entity&gt;&gt;
+Jugador
+--
+-id:int
+-nombre:String
+-apellidos:String
+-edad:int
+-idEquipo:int
+--
++create():boolean
++retrieve():boolean
++update():boolean
++delete():boolean
+_+obtenerJugadores(_
+_   busqueda: String , esJunior: boolean  , _
+_   esClass : boolean , esMaster : boolean _
+_  ):List&lt;Jugador&gt; _
+
+/* ...etc: varios constructores y accesores */</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLPackage</id><coordinates><x>30</x><y>275</y><w>740</w><h>350</h></coordinates><panel_attributes>Model
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>130</y><w>90</w><h>220</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;200;70;10</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>130</y><w>250</w><h>210</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>230;190;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>90</y><w>200</w><h>260</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;240;180;10</additional_attributes></element><element><id>Relation</id><coordinates><x>490</x><y>90</y><w>170</w><h>250</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>150;230;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>430</y><w>90</w><h>90</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*
+</panel_attributes><additional_attributes>10;10;70;70</additional_attributes></element></diagram>
