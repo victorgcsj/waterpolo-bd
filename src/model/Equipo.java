@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.*;
@@ -10,7 +5,7 @@ import java.sql.*;
 
 /**
  *
- * @author victor
+ * @author Victor Gomez-C
  */
 public class Equipo {
 
@@ -75,33 +70,96 @@ public class Equipo {
 
     // ---------- CRUD BÁSICO
     public boolean create() {
+        boolean exito = true;
+        try (Connection conn = ConexionBd.obtener()) {
+            try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO equipo (nombre, ciudad, pais) VALUES (?, ?, ?)")) {
+                stmt.setString(1, getNombre());
+                stmt.setString(2, getCiudad());
+                stmt.setString(3, getPais());
 
-        return true;
+                stmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            exito = false;
+            ex.printStackTrace();
+        }
+        return exito;
     }
 
     public boolean retrieve() {
-        // POR HACER
-        setId(33);
-        setNombre("Equipo ejemplo");
-        setCiudad("Ciudad ejemplo");
-        setPais("Pais ejemplo");
-        return true;
+        boolean exito = true;
+        try (Connection conn = ConexionBd.obtener()) {
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT nombre, ciudad, pais FROM equipo WHERE id = ?")) {
+                stmt.setInt(1, getId());
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        setNombre(rs.getString("nombre"));
+                        setCiudad(rs.getString("ciudad"));
+                        setPais(rs.getString("pais"));
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            exito = false;
+            ex.printStackTrace();
+        }
+
+        return exito;
     }
 
     public boolean update() {
-        return true;
+        boolean exito = true;
+        try (Connection conn = ConexionBd.obtener()) {
+            try (PreparedStatement stmt = conn.prepareStatement("UPDATE equipo SET nombre = ?, ciudad = ?, pais = ? WHERE id = ?")) {
+                stmt.setString(1, getNombre());
+                stmt.setString(2, getCiudad());
+                stmt.setString(3, getPais());
+                stmt.setInt(4, getId());
+
+                stmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            exito = false;
+            ex.printStackTrace();
+        }
+        return exito;
     }
 
     public boolean delete() {
-        return true;
+        boolean exito = true;
+        try (Connection conn = ConexionBd.obtener()) {
+            try (PreparedStatement stmt = conn.prepareStatement(
+                    "DELETE FROM equipo WHERE id = ?")) {
+                stmt.setInt(1, getId());
+
+                stmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            exito = false;
+            ex.printStackTrace();
+        }
+        return exito;
     }
 
     // ----------- Otras, de instancia, relacionadas con la fk
     public List<Jugador> getJugadores() {
-        // POR HACER.
         List<Jugador> resultado = new ArrayList<>();
-        resultado.add(new Jugador(1, "Paco", "López", 19));
-        resultado.add(new Jugador(2, "Luisa", "Martínez", 21));
+        boolean exito = true;
+        try (Connection conn = ConexionBd.obtener()) {
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT nombre, apellidos, edad FROM jugador WHERE idequipo = ?")) {
+                stmt.setInt(1, getId());
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    while (rs.next()) {
+                        resultado.add(new Jugador(rs.getString("nombre"), rs.getString("apellidos"), rs.getInt("edad"), getId()));
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            exito = false;
+            ex.printStackTrace();
+        }
         return resultado;
     }
 
@@ -111,17 +169,45 @@ public class Equipo {
         if (!(orden >= 0 && orden <= 1)) {
             throw new IllegalArgumentException("Parámetro de orden de equipos no admitido");
         }
+        List<Equipo> resultado = null;
+        boolean exito = true;
+        try (Connection conn = ConexionBd.obtener()) {
+            resultado = new ArrayList<>();
+            String sql = "SELECT id, nombre, ciudad, pais FROM EQUIPO";
+            if (!(busqueda.equals(""))) {
+                sql = sql + " WHERE LOWER(nombre) LIKE ? OR LOWER(ciudad) LIKE ? OR LOWER(pais) LIKE ?";
+                sql = orden == 0 ? sql + " ORDER BY nombre" : sql + " ORDER BY pais";
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    String busquedaSql = "%" + busqueda.toLowerCase() + "%";
+                    stmt.setString(1, busquedaSql);
+                    stmt.setString(2, busquedaSql);
+                    stmt.setString(3, busquedaSql);
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        while (rs.next()) {
+                            resultado.add(new Equipo(rs.getInt("id"), rs.getString("nombre"), rs.getString("ciudad"), rs.getString("pais")));
+                        }
+                    }
+                }
+            } else {
+                sql = orden == 0 ? sql + " ORDER BY nombre" : sql + " ORDER BY pais";
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    try (ResultSet rs = stmt.executeQuery()) {
+                        while (rs.next()) {
+                            resultado.add(new Equipo(rs.getInt("id"), rs.getString("nombre"), rs.getString("ciudad"), rs.getString("pais")));
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            exito = false;
+            ex.printStackTrace();
+        }
 
-        // Si la búsqueda es una cadena vacía lanzamos una select sin WHERE
-        // y si tiene algo con WHERE y varios LIKEs
-        // POR HACER
-        List<Equipo> resultado = new ArrayList<>();
-        resultado.add(
-                new Equipo(1, "Halcones calvos", "Getafe", "España"));
-        resultado.add(
-                new Equipo(2, "Dumma den som läser den", "Visby", "Suecia"));
-        return resultado;
-
+        if (exito) {
+            return resultado;
+        } else {
+            return null;
+        }
     }
 
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app;
 
 import java.util.*;
@@ -11,7 +6,7 @@ import model.*;
 
 /**
  *
- * @author victor
+ * @author Victor Gomez-C
  */
 public class AppJFrame extends javax.swing.JFrame {
 
@@ -53,8 +48,17 @@ public class AppJFrame extends javax.swing.JFrame {
     }
 
     public void actualizarListaJugadores() {
-        // POR HACER 
-        // Para actualizar la lista de jugadores de la segunda pestaña
+        String busqueda = jTextFieldBuscarJugadores.getText();
+        DefaultListModel<String> listModelJugador = new DefaultListModel<>();
+
+        List<Jugador> listaJugadores = Jugador.obtenerJugadores(busqueda, jRadioButtonJunior.isSelected(), jRadioButtonClass.isSelected(), jRadioButtonMaster.isSelected());
+        listaIdJugadores.clear();
+
+        for (Jugador j : listaJugadores) {
+            listModelJugador.addElement(String.format("%s %s - %d años (%s)", j.getNombre(), j.getApellidos(), j.getEdad(), j.getIdEquipo()));
+            listaIdJugadores.add(j.getId());
+        }
+        jListJugadores.setModel(listModelJugador);
     }
 
     /**
@@ -90,6 +94,9 @@ public class AppJFrame extends javax.swing.JFrame {
         jButtonAnnandir = new javax.swing.JButton();
         jLabelLBuscarJugador = new javax.swing.JLabel();
         jTextFieldBuscarJugadores = new javax.swing.JTextField();
+        jRadioButtonJunior = new javax.swing.JRadioButton();
+        jRadioButtonClass = new javax.swing.JRadioButton();
+        jRadioButtonMaster = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -131,6 +138,12 @@ public class AppJFrame extends javax.swing.JFrame {
 
         jLabelLBuscar.setText("Buscar");
 
+        jTextFieldBuscarEquipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldBuscarEquiposActionPerformed(evt);
+            }
+        });
+
         buttonGroupOrden.add(jRadioButtonOrdenNombre);
         jRadioButtonOrdenNombre.setSelected(true);
         jRadioButtonOrdenNombre.setText("Nombre");
@@ -142,6 +155,11 @@ public class AppJFrame extends javax.swing.JFrame {
 
         buttonGroupOrden.add(jRadioButtonOrdenPais);
         jRadioButtonOrdenPais.setText("Pais");
+        jRadioButtonOrdenPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonOrdenPaisActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Orden:");
 
@@ -238,6 +256,33 @@ public class AppJFrame extends javax.swing.JFrame {
 
         jLabelLBuscarJugador.setText("Buscar");
 
+        jTextFieldBuscarJugadores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldBuscarJugadoresActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonJunior.setText("Junior");
+        jRadioButtonJunior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonJuniorActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonClass.setText("Class");
+        jRadioButtonClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonClassActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonMaster.setText("Master");
+        jRadioButtonMaster.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMasterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -255,8 +300,14 @@ public class AppJFrame extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabelLBuscarJugador)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextFieldBuscarJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 318, Short.MAX_VALUE)))
+                                .addComponent(jTextFieldBuscarJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(jRadioButtonJunior)
+                                .addGap(18, 18, 18)
+                                .addComponent(jRadioButtonClass)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButtonMaster)))
+                        .addGap(0, 59, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -265,7 +316,10 @@ public class AppJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLBuscarJugador)
-                    .addComponent(jTextFieldBuscarJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldBuscarJugadores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButtonJunior)
+                    .addComponent(jRadioButtonClass)
+                    .addComponent(jRadioButtonMaster))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -307,9 +361,10 @@ public class AppJFrame extends javax.swing.JFrame {
             return; // no nos interesa
         }
         int index = jListEquipos.getSelectedIndex();
-        Equipo e = new Equipo(index);
-        e.retrieve();
         if (index >= 0) {
+            int id = listaIdEquipos.get(index);
+            Equipo e = new Equipo(id);
+            e.retrieve();
             DefaultListModel<String> listModelJugadores = new DefaultListModel<>();
             List<Jugador> listaJugadores = e.getJugadores();
             for (Jugador j : listaJugadores) {
@@ -321,13 +376,15 @@ public class AppJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jListEquiposValueChanged
 
     private void jRadioButtonOrdenNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonOrdenNombreActionPerformed
-
+        actualizarListaEquipos();
     }//GEN-LAST:event_jRadioButtonOrdenNombreActionPerformed
 
     private void jButtonAnnandirEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnandirEquipoActionPerformed
         Equipo e = new Equipo();
         EquipoJDialog dialogoEquipo = new EquipoJDialog(this, e);
         dialogoEquipo.setVisible(true);
+        actualizarListaEquipos();
+        
     }//GEN-LAST:event_jButtonAnnandirEquipoActionPerformed
 
     private void jButtonEditarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarEquipoActionPerformed
@@ -338,10 +395,10 @@ public class AppJFrame extends javax.swing.JFrame {
             e.retrieve();
             EquipoJDialog dialogoEquipo = new EquipoJDialog(this, e);
             dialogoEquipo.setVisible(true);
+            actualizarListaEquipos();
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un equipo", "Atención", JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_jButtonEditarEquipoActionPerformed
 
     private void jButtonAnnandirJugadorEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnandirJugadorEquipoActionPerformed
@@ -352,6 +409,7 @@ public class AppJFrame extends javax.swing.JFrame {
             j.setIdEquipo(id);
             JugadorJDialog dialogoJugador = new JugadorJDialog(this, j);
             dialogoJugador.setVisible(true);
+            actualizarListaJugadores();
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un equipo", "Atención", JOptionPane.WARNING_MESSAGE);
         }
@@ -364,12 +422,41 @@ public class AppJFrame extends javax.swing.JFrame {
                 int id = listaIdEquipos.get(index);
                 Equipo e = new Equipo(id);
                 e.delete();
+                actualizarListaEquipos();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un equipo", "Atención", JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_jButtonEliminarEquipoActionPerformed
+
+    private void jRadioButtonJuniorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonJuniorActionPerformed
+        // TODO add your handling code here:
+        actualizarListaEquipos();
+    }//GEN-LAST:event_jRadioButtonJuniorActionPerformed
+
+    private void jRadioButtonOrdenPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonOrdenPaisActionPerformed
+        // TODO add your handling code here:
+        actualizarListaEquipos();
+    }//GEN-LAST:event_jRadioButtonOrdenPaisActionPerformed
+
+    private void jRadioButtonClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonClassActionPerformed
+        // TODO add your handling code here:
+        actualizarListaEquipos();
+    }//GEN-LAST:event_jRadioButtonClassActionPerformed
+
+    private void jRadioButtonMasterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMasterActionPerformed
+        // TODO add your handling code here:
+        actualizarListaEquipos();
+    }//GEN-LAST:event_jRadioButtonMasterActionPerformed
+
+    private void jTextFieldBuscarJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscarJugadoresActionPerformed
+        // TODO add your handling code here:
+        actualizarListaEquipos();
+    }//GEN-LAST:event_jTextFieldBuscarJugadoresActionPerformed
+
+    private void jTextFieldBuscarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscarEquiposActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBuscarEquiposActionPerformed
 
     /**
      * @param args the command line arguments
@@ -424,6 +511,9 @@ public class AppJFrame extends javax.swing.JFrame {
     private javax.swing.JList<String> jListJugadoresEquipo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioButtonClass;
+    private javax.swing.JRadioButton jRadioButtonJunior;
+    private javax.swing.JRadioButton jRadioButtonMaster;
     private javax.swing.JRadioButton jRadioButtonOrdenNombre;
     private javax.swing.JRadioButton jRadioButtonOrdenPais;
     private javax.swing.JScrollPane jScrollPane1;

@@ -211,6 +211,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldBuscarEquipos">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldBuscarEquiposActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonOrdenNombre">
               <Properties>
@@ -231,6 +234,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pais"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonOrdenPaisActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
@@ -278,7 +284,7 @@
                           <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <Component id="jButtonAnnandir" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jButtonEditarJugador" min="-2" max="-2" attributes="0"/>
@@ -287,9 +293,15 @@
                                       <Component id="jLabelLBuscarJugador" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="jTextFieldBuscarJugadores" min="-2" pref="184" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonJunior" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonClass" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jRadioButtonMaster" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="318" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -303,6 +315,9 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelLBuscarJugador" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextFieldBuscarJugadores" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonJunior" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonClass" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jRadioButtonMaster" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane3" min="-2" pref="278" max="-2" attributes="0"/>
@@ -358,6 +373,33 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextFieldBuscarJugadores">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldBuscarJugadoresActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonJunior">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Junior"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonJuniorActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonClass">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Class"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonClassActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="jRadioButtonMaster">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Master"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRadioButtonMasterActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
